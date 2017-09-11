@@ -1,0 +1,149 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+a:link, a:visited {
+	color:#FFF;
+}
+a:hover, a:active {
+	color:white;
+}
+
+body {
+	font-family:-apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+	/*background:#5B4CA0 url(../images/background.png) repeat-x top center;*/
+	background-image: url(../images/background.png);
+
+	/* 背景图垂直、水平均居中 */
+	background-position: center center;
+
+	/* 背景图不平铺 */
+	background-repeat: no-repeat;
+
+	/* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+	background-attachment: fixed;
+
+	/* 让背景图基于容器大小伸缩 */
+	background-size: cover;
+
+	/* 设置背景颜色，背景图加载过程中会显示背景色 */
+	background-color: #464646;
+
+	color:#FFF;
+	text-align:center;
+}
+
+section {
+	margin:40px;
+}
+
+#steve {
+	margin:2% 0;
+}
+
+#steve p {
+	font-size:64px;
+	letter-spacing:-1px;
+	color:white;
+	font-weight:600;
+}
+
+#identity {
+	margin:auto 5%;
+}
+
+#identity h1 {
+	font-weight:600;
+	letter-spacing:-1px;
+	color:#FFF;
+	margin:30px;
+}
+
+#identity #icon {
+	text-indent:-9000em;
+	overflow:hidden;
+	width:128px;
+	height:128px;
+	background:url(../images/icon.png) no-repeat center;
+	margin:0 auto;
+	margin-top: 10%;
+	background-size:128px 128px;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (-o-min-device-pixel-ratio: 3/2),
+    only screen and (min--moz-device-pixel-ratio: 1.5),
+    only screen and (min-device-pixel-ratio: 1.5) {
+        #identity #icon {
+			background-image:url(../images/icon@2x.png);
+		}
+}
+
+#hero {
+	width:50%;
+	margin:0 auto;
+}
+#hero img {
+	width:100%;
+	height:auto;
+	display:block;
+}
+
+.button {
+	text-decoration:none;
+	display:block;
+	border-radius:10px;
+	background-color:#1F1F1F;
+	color:white!important;
+	width:200px;
+	height:64px;
+	font-size:20px;
+	font-weight:600;
+	line-height:64px;
+}
+
+.button:hover, .button:active {
+	transition:background-color .3s, color .3s;
+	background-color:#efefef;
+	color:black!important;
+}
+
+.primary-bg {
+	background-color:#222;
+	color:white!important;
+}
+
+#description h3 {
+	font-weight:600;
+	font-size:24px;
+}
+
+#buttons-container {
+	margin:55px auto;
+	display:table;
+}
+
+#buttons-container a {
+	display:inline-block;
+	margin:20px 30px;
+	text-align:center;
+}
+
+footer {
+	margin:40px 0;
+}
+
+/*footer {
+	font-size:15px;
+	font-weight:100;
+}*/
+
+footer p {
+	margin:20px 0;
+}
+
+footer small {
+	color:#ddd;
+	display:block;
+}

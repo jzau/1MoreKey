@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+<title>1MoreKey</title>
+<link>https://jackymelb.github.io/1MoreKey/update.xml</link>
+<description>The channel of 1MoreKey</description>
+<language>en</language>
+<item>
+<title>1MoreKey v1.0</title>
+<pubDate>2017-09-11T06:19:34+00:00</pubDate>
+<description><![CDATA[
+
+
+]]>
+</description>
+<enclosure url="https://github.com/jackymelb/1MoreKey/releases/download/v1.0/1MoreKey.zip"
+sparkle:version="2"
+sparkle:shortVersionString="v1.0"
+sparkle:dsaSignature="MC0CFCjx9KJ7b/lO226x85K9VZSrZgTQAhUAoZWF1MB+Yux56WPMDPFFOLl3lwM="
+length="6537237"
+type="application/octet-stream" />
+</item>
+</channel>
+</rss>
