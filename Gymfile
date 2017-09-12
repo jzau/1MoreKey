@@ -1,0 +1,24 @@
+# For more information about this configuration visit
+# https://github.com/fastlane/fastlane/tree/master/gym#gymfile
+
+# In general, you can use the options available
+# fastlane gym --help
+
+scheme "1MoreKey"
+
+sdk "macosx"
+
+output_directory "./"
+
+clean true
+
+configuration "Release"
+
+include_symbols true
+
+include_bitcode true
+
+archive_path "./build"
+
+derived_data_path "./build/derived_data"
+

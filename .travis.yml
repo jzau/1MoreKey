@@ -1,0 +1,32 @@
+language: objective-c
+osx_image: xcode9
+install:
+- brew update
+- brew install cocoapods
+- pod update
+- pod install
+script:
+- xcodebuild -workspace Funkey.xcworkspace -scheme "1MoreKey" build CODE_SIGN_IDENTITY=""
+  CODE_SIGNING_REQUIRED=NO | xcpretty
+before_deploy:
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/developerID.cer.enc
+  -d -a -out scripts/certs/developerID.cer
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/developerID.p12.enc
+  -d -a -out scripts/certs/developerID.p12
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dsa_priv.pem.enc -d
+  -a -out scripts/certs/dsa_priv.pem
+- "./scripts/add-key.sh"
+deploy:
+  provider: script
+  script: scripts/release_app
+  skip_cleanup: true
+  on:
+    repo: jackymelb/1MoreKey
+    tags: true
+after_deploy:
+- "./scripts/remove-key.sh"
+env:
+  global:
+  - secure: VO6DjGIZTInJ0QIyrWbb2tyOTg2Noh0VXqkH2WwWrKcnZCiGiHdLC+p6dm+bhXdjTp85H6YO/7CMsTYeeul6ju8WZmeUceMq755Py7Lz6OFK2gbuvUp9Q2tPhuhsbowdgk5WLopEoXQshP4QTslwQOJNeXQ9gQW4ljeKrzTy35ekcobKV0X/kLixARLE0as4SQFQqwxdHgPXNY378kVyuuYoY/xZlurfRDO/DFiZKuDfWAFfADUeqsnOrAxF86bQHcvgu4/EpjGFRa3jpPqeFlfBJ73yquRHem0NEsOwA6WINFKFv7QarDxIOwbKa80PNctU5yAI6ynD64UoARsjwfqP+VLQPEvSW5y14V+Zh1u6UgXTdBYuUIIqOXdEjPWHBP74J0kuHo88g58F8uzHHaw5qOudCEcMu0GXF+H4vXqKcSi7krCEc1p+GY+DBvZj8Qa//ui1Rtoxahd9zIf1g/QKt3nv/QQ8cvwDD+7MfT98uPT87grI+GpJNDKgHfNVz8gtjABBYQq6ssGQuVXNX92eyyzP1wjgf0obIimGt2pJ9lI2xObo2TWs4k/4wm7HTVp2IAOHFRjjSW6/u2S6Z8TKhYI48jCBLewrsMsQe4zISurI8NdCqc+1B9aOOz07YkzoKGQJCVFsRG9NFGOAO945kBnpHVuueCDeGFwz4oo=
+  - secure: LganY7rbC8s2dMu8VVwk5J6BZG3YVI3U1QcQALeKUuPzya68xVCyW/4iLFxRFxwoJIe6FPQ68bg6Bbl123qgwAeaWdCKh3q2YbeckByed/BYjzCUmyilvVfD/zGaG7FnQcdnWHhYwny/zp+ccmoCfdFWN1/I97yJWIiZK+0slY0e3TP3LxTZlGRFe98/zWzPppdPXxkrohhk4YsnLLOSGnXOb2KgIL3xAC5Ls23k8m41hgYdPP9JJ58io5NfeZPOg29GWlxuQEsTF9lvvRYPULgZtPPSlFuzhuJn8P+Hu+rmpX3QJA2i822x0z4XLHvISbBeNHHbYt3ODVgPp2WEu8EUGWSdMPEdWab2pxgZhunP9qAyaav8BpnJSHRhlPXe6ZFVmDm+loOM9+ch+RMhRgwGmg5LvpQmmN/Csbt8uBwlUZzJOCr/EdoFaJ7l10OuP+7SmFLIMX/mvbUMudAxuuqLe30lkRbmsfDb9lt4BaZrp/CS5qGZ6EI3HaJSCqhK8ercvXO4AoVMQMGxLIaqiKD6MfBPfK2S2mnXThZzZL2+CCKhRdnUSDMWODbhngK+rO+rb5TNhz5gK7yw62V1zRkHRpIo0ew/Pm93444GDORYlJIzP3qdU4RwdxksqiGVQtBkWmlkRnpgCmS6bz3EDjXHtRLX+d6pkOnluZ7EBKQ=
+  - secure: T8bBJN4yekSGjk2VNf9X0Rz8JxvRoMIbkDlr2ajXX8jOddh+BFeZnZvGsf90Q3QPqiw4Zm6UaGVQxJhovDOMmBiNRuI8c3R5O6nauiD0ztVPSQq51CShSqe97kjAqSxWlIWAcTAeNU3j8wp04BnuItWasR1T/jP74jBTUteao61YeBZHRBunKIM3zk7g/9Bb0+UeFJ11BjWZA2ndpOKAxQ9QPC86rWYSlfh96HZ9/fPQJe0BboniMLRq+ALVHwvkAddf1Q4N62rDmpCNIO84KvKoiyRLCvZZzZT0MJbqZjFoC95Mu6kHzJMruMF3vJd/1U6G9oTcZoeM4AUb1dO4eVT7KiBapDucRHuPLQTP/LG3SwIvh59a3r4i4olNspQ8rlt/xXi8IlAYNdvXS7ncuxChjZB6ujsb1z/M4NdZwlm8yIfnqLBUpjQPmN5tT84DTwhFRp3rkkczSBhw47LcoxNMWByZOEF4VO82CPK+mrgWSkqfHjdcyPxL60nY36D/4hGNb7QsHvBzHgr6XD7Vl/tgRi6HCo0OK08OztjSXU11dW7ZsuYMJq2tKX6lFkfdh9rN6PHBMLUdW6fp+iNAD4Pjsmjnmr3kZrX20nt4i2jJtclPudFYdd/Nxf+hcFwpOF/vl3kTedQqGU3mrnbnSa0Ntuo4NpPQfdHXlOJt0jk=

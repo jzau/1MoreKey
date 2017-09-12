@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+set -e
+
+git=$(sh /etc/profile; which git)
+VERSION_TAG=$("$git" describe --tags --always --abbrev=0)
+
+# if ! [[ $("$git" tag -l --points-at HEAD) ]]; then
+#   echo "No tag points at current commit"
+#   exit 1
+# fi
+
+gem install gym github-markup redcarpet --no-ri --no-rdoc
+fastlane gym
+
+export ZIP_FILE=1MoreKey.zip
+ditto -c -k --sequesterRsrc --keepParent 1MoreKey.app $ZIP_FILE
+
+export GOPATH=$HOME/golang
+export PATH=$PATH:$GOPATH/bin
+
+go get github.com/aktau/github-release
+github-release release \
+  --user jackymelb \
+  --repo 1MoreKey \
+  --tag $VERSION_TAG \
+  --name $VERSION_TAG \
+  --description $VERSION_TAG
+
+github-release upload \
+  --user jackymelb \
+  --repo 1MoreKey \
+  --tag $VERSION_TAG \
+  --name $ZIP_FILE \
+  --file $ZIP_FILE
+
+scripts/publish_appcast $ZIP_FILE
+
+rm -rf 1MoreKey.app
+rm -rf 1MoreKey.app.dSYM.zip
+rm -rf build.*
+rm -rf build/

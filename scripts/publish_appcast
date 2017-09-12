@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+
+set -e
+set -o pipefail
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 ZIP_FILE"
+  exit 1
+fi
+
+export ZIP_FILE=$1
+
+if ! [ -e $ZIP_FILE ]; then
+    echo "No zip file found"
+    exit
+fi
+
+git=$(sh /etc/profile; which git)
+VERSION_TAG=$("$git" describe --tags --always --abbrev=0)
+
+echo "Generating appcast file..."
+
+ruby -rerb -rdate -e "puts ERB.new(File.read(\"scripts/sample.xml.erb\"), nil, '-').result" > update.xml
+
+echo "Validate signature..."
+echo "The MD5 of archive:"
+md5 $ZIP_FILE
+
+echo "Validating..."
+echo "Public cert:"
+cat scripts/certs/dsa_pub.pem
+
+openssl dgst -sha1 -binary < $ZIP_FILE | openssl dgst -dss1 -verify scripts/certs/dsa_pub.pem -signature signature
+
+git clone --depth=1 --branch=gh-pages https://$GITHUB_TOKEN@github.com/jackymelb/1MoreKey.git 1MoreKeySite
+
+cp -rf update*.xml 1MoreKeySite/
+
+cd 1MoreKeySite
+git add .
+git -c user.name="TRAVIS CI" commit -m "Publish appcast"
+git push --force --quiet https://$GITHUB_TOKEN@github.com/jackymelb/1MoreKey.git gh-pages > /dev/null 2>&1
+
+cd ..
+rm -rf 1MoreKeySite
+rm -rf $ZIP_FILE
+rm -rf signature
+echo "Done ^_^"

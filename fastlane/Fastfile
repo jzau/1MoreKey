@@ -1,0 +1,34 @@
+fastlane_version "2.47.0"
+
+default_platform :mac
+
+platform :mac do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    # cocoapods
+    
+  end
+
+  desc "Release a new Version"
+  lane :release do
+    # gym # Build your app - more options available
+    sh "../scripts/release_app"
+  end
+
+  after_all do |lane|
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+
+    notification(subtitle: "Fastlane finished '#{lane}'", message: "SUCCESS") # Mac OS X Notification
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+    notification(subtitle: "Fastlane finished '#{lane}'", message: "ERROR") # Mac OS X Notification
+
+  end
+end
