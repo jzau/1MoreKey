@@ -42,14 +42,10 @@ class GeneralViewController: NSViewController {
 }
 
 extension GeneralViewController: MASPreferencesViewController {
-
-    override var identifier: NSUserInterfaceItemIdentifier? {
-        get {
-            return NSUserInterfaceItemIdentifier("general")
-        } set {
-            super.identifier = newValue
-        }
+    var viewIdentifier: String {
+        return "general"
     }
+
     var toolbarItemImage: NSImage? {
         get {
             return NSImage(named: NSImage.Name.preferencesGeneral)

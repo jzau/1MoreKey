@@ -66,13 +66,10 @@ class AboutViewController: NSViewController {
 }
 
 extension AboutViewController: MASPreferencesViewController {
-    override var identifier: NSUserInterfaceItemIdentifier? {
-        get {
-            return NSUserInterfaceItemIdentifier("about")
-        } set {
-            super.identifier = newValue
-        }
+    var viewIdentifier: String {
+        return "about"
     }
+
     var toolbarItemImage: NSImage? {
         get {
             return NSImage(named: NSImage.Name.info)

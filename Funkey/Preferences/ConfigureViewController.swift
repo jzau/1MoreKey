@@ -81,13 +81,10 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 extension ConfigureViewController: MASPreferencesViewController {
-    override var identifier: NSUserInterfaceItemIdentifier? {
-        get {
-            return NSUserInterfaceItemIdentifier("configure")
-        } set {
-            super.identifier = newValue
-        }
+    var viewIdentifier: String {
+        return "configure"
     }
+
     var toolbarItemImage: NSImage? {
         get {
             return NSImage(named: NSImage.Name.advanced)
