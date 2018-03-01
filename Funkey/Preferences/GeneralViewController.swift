@@ -20,8 +20,8 @@ class GeneralViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        autoStartAtLoginButton.reactive.state <~ AutostartManager.autostartAtLogin.map{ $0 ? 1 : 0 }
-        autoCheckButton.reactive.state <~ UpdateManager.autoCheck.map{ $0 ? 1 : 0 }
+        autoStartAtLoginButton.reactive.state <~ AutostartManager.autostartAtLogin.map{ $0 ? .on: .off }
+        autoCheckButton.reactive.state <~ UpdateManager.autoCheck.map{ $0 ? .on : .off }
     }
     
     @IBAction func autoStartChanged(_ sender: NSButton) {

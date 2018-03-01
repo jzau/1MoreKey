@@ -2,39 +2,30 @@ PODS:
   - Crashlytics (3.8.6):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.13)
-  - MASPreferences (1.2.1)
-  - ReactiveCocoa (6.0.2):
-    - ReactiveSwift (~> 2.0)
-  - ReactiveSwift (2.0.1):
+  - MASPreferences (1.3)
+  - ReactiveCocoa (7.1.0):
+    - ReactiveSwift (~> 3.1)
+  - ReactiveSwift (3.1.0):
     - Result (~> 3.2)
-  - Result (3.2.3)
+  - Result (3.2.4)
   - Sparkle (1.18.1)
 
 DEPENDENCIES:
-  - Crashlytics
-  - Fabric
-  - MASPreferences (from `https://github.com/shpakovski/MASPreferences.git`)
-  - ReactiveCocoa
+  - Crashlytics (~> 3.8)
+  - Fabric (~> 1.6)
+  - MASPreferences (~> 1.3)
+  - ReactiveCocoa (~> 7.1)
   - Sparkle
-
-EXTERNAL SOURCES:
-  MASPreferences:
-    :git: https://github.com/shpakovski/MASPreferences.git
-
-CHECKOUT OPTIONS:
-  MASPreferences:
-    :commit: db362983dd14359fdf23b258edb54d06d8d63cc1
-    :git: https://github.com/shpakovski/MASPreferences.git
 
 SPEC CHECKSUMS:
   Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   Fabric: 2fb5676bc811af011a04513451f463dac6803206
-  MASPreferences: 23946c155d77f0e72a6e5af9d8b67c52210a1fd0
-  ReactiveCocoa: 9dcbd8275374f35a6e5fcce01a93b860a7b92c44
-  ReactiveSwift: 60a29ff35988a964fd2bb759755cb6594de523fc
-  Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
+  MASPreferences: c08b8622dd17b47da87669e741efd7c92e970e8c
+  ReactiveCocoa: 105ad96f6b8711f1ee7d165fc96587479298053b
+  ReactiveSwift: 5b26d2e988fe0eed2daf48c4054d1de74db50184
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   Sparkle: 06ea33170007c5937ee54da481b4481af98fac79
 
-PODFILE CHECKSUM: 57d28309e28cc3901039570cdc306bee12fe3f7d
+PODFILE CHECKSUM: d55e9eaf010c88eb704867b64b9cbcc585472ca5
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0
